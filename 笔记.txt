@@ -1,0 +1,5 @@
+1.强类型、静态类型
+
+2.类型推测(var)
+
+3.dynamic 动态类型(接近js中的var、java中的object)
