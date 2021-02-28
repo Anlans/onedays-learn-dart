@@ -102,11 +102,76 @@ dynamic谨慎使用(相当于禁用了编译器的自动语法检查)
 
 ### 第三课
 函数
+1.返回值类型
+2.名字
+3.参数列表
+
+--------------------------------
+
+dart函数 不支持重载的:
+
+通过is间接判断,来实现重载
+
+变量/值 is 类型
+
+is 工作在运行时; is用于判断运行时类型
 
 
 
+```
+void show(dynamic a) {
+  if( a is int) {
+    print('a');
+  } else if(a is String) {
+    print('b');
+  }else{
+    throw TypeError();
+  }
+}
+```
 
+--------------------------------
 
+参数列表:
+1.可选参数
+  xxx(a,[b,c]){...} 方括号即可
+
+  变量,参数不传 默认值都是null
+
+  可选参数必须在最后位置
+
+  默认值: xxx(x a, [x b=...])
+
+```
+void show(int a, [int b, int c]) {
+  print(a);
+  print(b);
+  print(c);
+}
+void main() {
+  show(12);
+}
+
+OUT:
+12
+null
+null
+```
+
+2.具名参数(有名字的参数,类似python的keyword参数)
+  xxx(int a, int b, {int v1=xxx, xxx v2})
+
+'''
+void show(int a, {String name, int age}) {
+  print(a);
+  print(name);
+  print(age);
+}
+void main() {
+  show(12, age:24, name:'aq');
+}
+
+'''
 
 
 
