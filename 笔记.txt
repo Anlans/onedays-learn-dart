@@ -334,11 +334,469 @@ a=12b=1
   substring()
 
 
+--------------------------------
+
+
+
+### 第八课
+list--数组
+  定长+变长
+  定长:C
+  变长:js
+  定长+变长:java
+
+1.初始化
+  List(length)
+  List()
+
+  a=[1,2,3,4]
+  等价于
+  var a=List(4);
+  a[0]=1;
+  a[1]=2;
+  a[2]=3;
+  a[3]=4;
+
+2.定长
+  a=List(n);
+  a=[1,2,3];
+  List() => List(0)
+
+3.变长
+  a.add(element);
+  a.addAll([...]);
+
+
+--------------------------------
+List成员
+  length
+  [..]
+
+  add(el)
+  addAll([...])
+
+  contains(el) => bool
+  indexOf(el) => int
+
+  sublist(start,[end]) 不包括结束位置
+
+  insert(index, el)
+  insertAll(index, [...])
+
+  remove()
+  removeAt()
+
+  forEach((el){
+  })
+
+  map() => list x
+        => Iterable
+
+  Iterable.toList()
+
+--------------------------------
+### 第九课
+泛型-- 一套代码适用不同的数据类型
+  不是没有类型,类型可以作为一个特殊参数传进去
+
+问题:让一个函数适用多种类型
+1. dynamic      严重降低程序质量(问题推到运行时)
+2. 写多套        麻烦
+  showInt
+  showString
+  showPerson
+  showWidget
+  ...
+3. 泛型       方便使用(重点)
+  例子:
+  List<x>
+  List<dynamic> => var a=List<int>();
+```
+void show<T>(T a, T b) {
+  print(a);
+}
+void main() {
+  show(12, 'adf');
+}
+```
+
+```
+class Storage<T> {
+  T val;
+  get() {
+    return val;
+  }
+  set(T newVal) {
+    val=newVal;
+  }
+}
+void main() {
+  var s1=Storage<int>();
+  s1.set(12);
+  print(s1.get());
+}
+```
+
+
+--------------------------------
+
+### 第十课
+Map
+  默认类型: dynamic
+  var m=Map();
+  var m=Map<dynamic, dynamic>();
+
+  Map里一任何东西都可以做key
+
+1.
+第一种写法:
+```
+void main() {
+  var m=Map<String, int>();
+  m['a']=97;
+  print(m);
+}
+```
+第二种写法:
+```
+void main() {
+  var m=<String, int>{
+    'a':12,
+    'b':2
+  };
+  print(m);
+}
+```
+
+m.addAll({...})
+m.containsKey(key) => bool
+m.containsValue(value) => bool
+
+m.remove(key)
+
+m.removeWhere( (key, value) => true是否删除 );
+
+m.forEach((key, value){})
+
+var m2=m.map((key, value) => MapEntry(key, value));
+
+--------------------------------
+
+### 第十一课
+
+判断
+
+if(必须用bool值)
+
+switch(val) {
+  case 值1:
+   ...
+    break;
+  default:
+    break;
+}
+--------------------------------
+
+循环
+for
+  for
+  for...in
+
+while
+do{...}while()
+
+--------------------------------
+异常捕获
+try{
+  可能产生运行时错误的代码
+}on RangeError{
+  ...
+}catch(e){
+  出错
+}[finally{
+  无论如何都执行,回收资源
+}]
+
+
+
+--------------------------------
+### 第十二课
+面向对象
+C,JS 面向过程+面向对象
+JAVA 面向对象
+
+dart很依赖面向对象
+
+程序=数据(变量)+操作(函数)
+对象=属性(数据)+方法(函数)+访问器(getter, setter)+构造器(constructor)
+
+--------------------------------
+
+dart里面new
+1.x 强制new
+2.x 可选new
+
+--------------------------------
+child: Center(
+  child: Text('sss');
+)
+===>
+child: new Center(
+  child: new Text('sss');
+)
+
+
+--------------------------------
+dart里面new可选--任何情况下,都可以不写
+dart里面this可选--没有冲突可选,有冲突加上
+  成员变量 vs 普通变量
+  this.name
+
+--------------------------------
+### 第十三课
+成员
+
+1.成员变量--属性
+2.成员函数--方法
+3.构造器
+4.访问器
+--------------------------------
+var a;
+int a;
+final a;
+const a;
+
+--------------------------------
+dart的class中没有访问修饰符
+public
+private
+protected
+
+习惯于_开头表示私有成员 -- 绝对不要用
+
+--------------------------------
+
+构造器--构建类的实例的时候会自动执行,可以完成初始化操作
+
+跟类同名函数,没有返回值
+
+```
+class Person{
+  String name='shi';
+  int age;
+
+  Person(String name, int age) {
+    this.name=name;
+    this.age=age;
+  }
+
+  void show() {
+    print('xinming: $name, nianlin: $age');
+  }
+}
+void main() {
+  var p=Person('shi', 25);
+  var p2=Person('aq', 24);
+  p.show();
+  p2.show();
+}
+```
+第二种写法this
+```
+  String name;
+  int age;
+  Person(this.name, this.age);
+```
+
+简写
+class xxx{
+  type a;
+  type b;
+  xxx(this.a, this.b);
+}
+
+也可用keyword参数编写 -- 重要
+class Person{
+  String name;
+  int age;
+  Person({this.name, this.age});
+}
+--------------------------------
+
+访问器
 
 
 
 
 
+
+
+--------------------------------
+### 第十四课
+静态成员   无需实例化直接在类上访问; 所有实例共享一个数据
+  实例成员 Person().a
+  类成员   Person.a
+
+static
+
+
+--------------------------------
+为什么final可选static
+const必选static
+
+
+--------------------------------
+final 禁止赋值
+const 禁止一切修改(包括赋值)
+
+
+--------------------------------
+final a=[1,2,3]; //每个实例的a可能不同(可以修改a里面的)
+
+const a=[1,2,3]; //每个实例的a一定相同(a里面的不可修改)
+
+
+const成员,没有必要存多份
+
+
+
+--------------------------------
+### 第十五课
+继承: 从已有类(父类,基类,超类)上继承出一个新的类(子类,派生类)
+
+1.怎么写
+  class Base{
+
+  }
+
+  class Derived extends Base{
+
+  }
+
+
+
+2.有什么用
+  i.重用已有代码
+  ii.父类变了,子类不需要任何修改(理想情况下)直接享受父类的变化
+    --降低维护成本
+    bug修改父类子类同修正
+    行为(如加个验证码)
+  iii.层级关系 大型的框架中,层级关系可以帮很大的忙
+
+class Widget{
+
+}
+
+class Text extends Widget{
+
+}
+
+
+
+
+--------------------------------
+
+重载:
+1.函数重载--dart不支持
+  show(int a) { }
+  show(String a) { }
+
+2.父类重载--重写父类的方法(子类觉得父类提供的不够用)
+
+
+
+
+override 重载
+重载的子类方法,父类+自己的操作
+1.直接复制父类的代码--极其不靠谱
+  维护成本
+  有时候压根复制不了--父类有时候根本就不是dart类
+
+2.在重载的子类方法中,直接调用父类方法
+  super.xxx();
+
+--------------------------------
+
+annotation (翻译为 标注,注解)
+
+@xxxx
+
+1.对代码的编译,程序执行来说本身毫无用处
+
+2.有用--给IDE看,一定要加
+
+
+
+
+
+
+--------------------------------
+
+重载构造器
+
+constructor(父类参数, 子类参数...): super(父类参数) {
+  //子类构造工作
+
+}
+```
+class Base{
+  int a;
+  Base(this.a);
+}
+
+class Derived extends Base{
+  int b;
+  Derived(int a, this.b):super(a);
+}
+```
+
+--------------------------------
+### 第十六课
+抽象类: 不能被实例化, 无需提供方法的实现
+侧重于描述"形状"有哪些通用操作,拿来继承
+
+设计能力
+
+abstract class 形状{
+
+}
+
+class Widget{
+
+}
+
+
+
+
+--------------------------------
+### 第十七课
+泛型: 不是没有类型,类型以参数形式传进来
+泛型 vs dynamic
+
+--------------------------------
+泛型函数
+泛型类
+--------------------------------
+泛型+继承
+class Base<T>{}
+
+class Derived<T> extends Base<T> { }
+class Derived extends Base<int>　{ }
+
+--------------------------------
+
+泛型--范围
+
+void hide<T>(T obj) {
+  obj.show=false;
+}
+
+
+
+
+
+
+--------------------------------
 
 
 
@@ -349,6 +807,21 @@ a=12b=1
 
 
 --------------------------------
+
+
+
+
+
+
+
+--------------------------------
+
+
+
+
+
+
+
 
 
 

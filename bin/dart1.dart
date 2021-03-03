@@ -1,4 +1,6 @@
-void main() {
-  var str='AaaBB';
-  print(str.codeUnitAt(0));
+void show<T extends num>(T arg){
+  print(arg);
+}
+void main(){
+  show(12.1);
 }
